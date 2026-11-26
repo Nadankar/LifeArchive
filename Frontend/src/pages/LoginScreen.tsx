@@ -2,10 +2,12 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { loginUser } from "@/services/authService";
+import { getCurrentUser, loginUser } from "@/services/authService";
+import { useAuth } from "@/context/AuthContext";
 
 function LoginScreen() {
     const router = useRouter();
+    const { setUser } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -20,15 +22,20 @@ function LoginScreen() {
 
             await loginUser({ email, password });
 
+            const currentUser = await getCurrentUser();
+            setUser(currentUser);
+
             router.replace("/home");
         }
         catch (error: any) {
             setError(
-                error.response?.data?.message || error.message || "Login failed."
-            )
+                error.response?.data?.message ||
+                error.message ||
+                "Registration failed."
+            );
         }
         finally {
-            setLoading(false);
+            setLoading(false); 
         }
     }
 

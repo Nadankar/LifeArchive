@@ -40,7 +40,7 @@ export const getToken = async () => {
     return await SecureStore.getItemAsync(TOKEN_KEY);
 };
 
-export const removeToken = async () => {
+export const removeToken = async () => { 
     if (Platform.OS === "web") {
         localStorage.removeItem(TOKEN_KEY);
     } else {

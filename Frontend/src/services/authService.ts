@@ -1,6 +1,6 @@
 import api from "./api";
 
-import { saveToken, removeToken, getToken } from "./storage";
+import { saveToken, removeToken } from "./storage";
 
 export const registerUser = async (data: {
     name: string,
@@ -13,7 +13,7 @@ export const registerUser = async (data: {
 
     return response.data;
 }
-
+ 
 export const loginUser = async (data: {
     email: string,
     password: string
@@ -26,11 +26,8 @@ export const loginUser = async (data: {
 }
 
 
-export const logoutUser = async (data: {
-    email: string,
-    password: string
-}) => {
-    const response = await api.post('/logout', data);
+export const logoutUser = async ()=>{
+   await api.post('/logout');
 
     await removeToken();
 }

@@ -3,9 +3,9 @@ import { getToken } from "./storage";
 import { type InternalAxiosRequestConfig } from "axios";
 
 const api=axios.create({
-    baseURL:"http://10.80.171.188:8000/api",
+    baseURL: "http://localhost:8000/api",
     headers:{
-        Accept:"Application/json"
+        Accept:"application/json"
     },
     timeout:10000
 });
@@ -15,7 +15,7 @@ api.interceptors.request.use(async(config:InternalAxiosRequestConfig)=>{
 
     if(token){
         config.headers.Authorization=`Bearer ${token}`;
-    }
+    } 
 
     return config;
 })
